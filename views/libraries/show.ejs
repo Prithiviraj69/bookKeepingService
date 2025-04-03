@@ -1,0 +1,82 @@
+<main>
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="/libraries"><i class="fas fa-arrow-left"></i> Back to Libraries</a>
+    </div>
+
+    <div class="library-detail">
+      <div class="library-header">
+        <h1><%= library.name %></h1>
+        <p class="address"><i class="fas fa-map-marker-alt"></i> <%= library.address %></p>
+      </div>
+      
+      <div class="library-description">
+        <h3>About This Library</h3>
+        <p><%= library.description %></p>
+      </div>
+
+      <div class="library-actions">
+        <% if (typeof user !== 'undefined' && user) { %>
+          <a href="/libraries/<%= library._id %>/edit" class="btn btn-secondary"><i class="fas fa-edit"></i> Edit</a>
+          <button class="btn btn-danger delete-library" data-id="<%= library._id %>"><i class="fas fa-trash"></i> Delete</button>
+        <% } %>
+      </div>
+
+      <div class="library-inventory">
+        <div class="inventory-header">
+          <h2>Library Inventory</h2>
+          <% if (typeof user !== 'undefined' && user && user.role === 'admin') { %>
+            <a href="/libraries/<%= library._id %>/inventory/add" class="btn btn-primary"><i class="fas fa-plus"></i> Add Book to Inventory</a>
+          <% } %>
+        </div>
+
+        <div class="search-filter-container">
+          <div class="search-filter">
+            <div class="search-box">
+              <i class="fas fa-search"></i>
+              <input type="text" id="search-inventory" placeholder="Search inventory...">
+            </div>
+            <div class="filter-group">
+              <select id="filter-availability" class="filter-select">
+                <option value="">All Books</option>
+                <option value="available">Available</option>
+                <option value="borrowed">Borrowed</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="books-grid" id="inventory-container">
+          <% books.forEach(function(book) { %>
+            <div class="book-card">
+              <div class="book-cover">
+                <img src="<%= book.image %>" alt="<%= book.title %>">
+                <% if (!book.isBorrowed) { %>
+                  <span class="status available">Available</span>
+                <% } else { %>
+                  <span class="status borrowed">Borrowed</span>
+                <% } %>
+              </div>
+              <div class="book-info">
+                <h3><a href="/books/<%= book._id %>"><%= book.title %></a></h3>
+                <p class="author"><i class="fas fa-user"></i> <%= book.author.name %></p>
+                <div class="book-actions">
+                  <a href="/books/<%= book._id %>" class="btn btn-sm btn-secondary"><i class="fas fa-info-circle"></i> Details</a>
+                  <% if (typeof user !== 'undefined' && user && user.role === 'borrower' && !book.isBorrowed) { %>
+                    <button class="btn btn-sm btn-primary borrow-btn" data-id="<%= book._id %>"><i class="fas fa-hand-holding"></i> Borrow</button>
+                  <% } else if (typeof user !== 'undefined' && user && book.borrower && book.borrower._id.toString() === user._id.toString()) { %>
+                    <button class="btn btn-sm btn-warning return-btn" data-id="<%= book._id %>"><i class="fas fa-undo"></i> Return</button>
+                  <% } %>
+                  <% if (typeof user !== 'undefined' && user && user.role === 'admin') { %>
+                    <button class="btn btn-sm btn-danger remove-from-inventory" data-library="<%= library._id %>" data-book="<%= book._id %>"><i class="fas fa-trash"></i> Remove</button>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+

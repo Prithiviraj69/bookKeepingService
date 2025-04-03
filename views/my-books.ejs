@@ -1,0 +1,37 @@
+<main>
+    <div class="container">
+      <div class="page-header">
+        <h2>My Borrowed Books</h2>
+      </div>
+  
+      <% if (borrowedBooks.length === 0) { %>
+        <div class="empty-state">
+          <p>You haven't borrowed any books yet.</p>
+          <a href="/books" class="btn btn-primary">Browse Books</a>
+        </div>
+      <% } else { %>
+        <div class="books-grid">
+          <% borrowedBooks.forEach(function(book) { %>
+            <div class="book-card">
+              <div class="book-cover">
+                <img src="<%= book.image %>" alt="<%= book.title %>">
+                <span class="status borrowed">Borrowed</span>
+              </div>
+              <div class="book-info">
+                <h3><a href="/books/<%= book._id %>"><%= book.title %></a></h3>
+                <p class="author">By: <%= book.author.name %></p>
+                <p class="library">Library: <%= book.library.name %></p>
+                <p class="return-date">Return by: <%= new Date(book.returnDate).toLocaleDateString() %></p>
+                <div class="book-actions">
+                  <a href="/books/<%= book._id %>" class="btn btn-sm btn-secondary">Details</a>
+                  <button class="btn btn-sm btn-warning return-btn" data-id="<%= book._id %>">Return</button>
+                </div>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+      <% } %>
+    </div>
+  </main>
+  
+  

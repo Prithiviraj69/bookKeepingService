@@ -1,0 +1,57 @@
+<main>
+  <div class="page-banner">
+    <div class="container">
+      <h1>Our Libraries</h1>
+      <p>Explore our network of libraries and find your next read</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="page-header">
+      <div class="page-header-content">
+        <h2>Libraries Collection</h2>
+        <p>Browse through our partner libraries</p>
+      </div>
+      <% if (typeof user !== 'undefined' && user) { %>
+        <a href="/libraries/add" class="btn btn-primary"><i class="fas fa-plus"></i> Add New Library</a>
+      <% } %>
+    </div>
+
+    <div class="search-filter-container">
+      <div class="search-filter">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" id="search-libraries" placeholder="Search libraries by name or location...">
+        </div>
+      </div>
+    </div>
+
+    <div class="libraries-grid" id="libraries-container">
+      <% libraries.forEach(function(library) { %>
+        <div class="library-card">
+          <div class="library-info">
+            <h3><a href="/libraries/<%= library._id %>"><%= library.name %></a></h3>
+            <p class="address"><i class="fas fa-map-marker-alt"></i> <%= library.address %></p>
+            <p class="description"><%= library.description.substring(0, 100) %>...</p>
+            <div class="library-actions">
+              <a href="/libraries/<%= library._id %>" class="btn btn-sm btn-secondary"><i class="fas fa-info-circle"></i> View Details</a>
+              <% if (typeof user !== 'undefined' && user && user.role === 'admin') { %>
+                <a href="/libraries/<%= library._id %>/edit" class="btn btn-sm btn-secondary"><i class="fas fa-edit"></i> Edit</a>
+                <button class="btn btn-sm btn-danger delete-library" data-id="<%= library._id %>"><i class="fas fa-trash"></i> Delete</button>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+
+    <div id="pagination" class="pagination">
+      <% if (pages > 1) { %>
+        <% for(let i = 1; i <= pages; i++) { %>
+          <a href="/libraries?page=<%= i %>" class="<%= page == i ? 'active' : '' %>"><%= i %></a>
+        <% } %>
+      <% } %>
+    </div>
+  </div>
+</main>
+

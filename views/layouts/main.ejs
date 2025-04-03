@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= typeof title !== 'undefined' ? title + ' | Bookkeeping Service' : 'Bookkeeping Service' %></title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <%- style %>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <h1><a href="/">Bookkeeping Service</a></h1>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="/" class="<%= typeof path !== 'undefined' && path === '/' ? 'active' : '' %>">Home</a></li>
+            <li><a href="/books" class="<%= typeof path !== 'undefined' && path === '/books' ? 'active' : '' %>">Books</a></li>
+            <li><a href="/libraries" class="<%= typeof path !== 'undefined' && path === '/libraries' ? 'active' : '' %>">Libraries</a></li>
+            <% if (typeof user !== 'undefined' && user) { %>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle">
+                  <i class="fas fa-user"></i> <%= user.name %> <i class="fas fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/profile">Profile</a></li>
+                  <% if (user.role === 'admin') { %>
+                    <li><a href="/admin">Admin Dashboard</a></li>
+                  <% } %>
+                  <li><a href="/logout">Logout</a></li>
+                </ul>
+              </li>
+            <% } else { %>
+              <li><a href="/login" class="<%= typeof path !== 'undefined' && path === '/login' ? 'active' : '' %>">Login</a></li>
+              <li><a href="/register" class="<%= typeof path !== 'undefined' && path === '/register' ? 'active' : '' %>">Register</a></li>
+            <% } %>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle">
+                <i class="fas fa-globe"></i> <i class="fas fa-caret-down"></i>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="#" class="change-language" data-lang="en">English</a></li>
+                <li><a href="#" class="change-language" data-lang="hi">हिंदी</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <% if (typeof messages !== 'undefined' && messages.length > 0) { %>
+    <div class="container">
+      <% messages.forEach(function(message) { %>
+        <div class="alert alert-<%= message.type %>">
+          <%= message.text %>
+          <span class="close-btn">&times;</span>
+        </div>
+      <% }); %>
+    </div>
+  <% } %>
+
+  <%- body %>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2023 Bookkeeping Service</p>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+  <%- script %>
+</body>
+</html>
+

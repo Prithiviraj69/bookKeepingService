@@ -1,0 +1,67 @@
+<main>
+  <div class="auth-page">
+    <div class="container">
+      <div class="auth-container">
+        <div class="auth-form-container">
+          <div class="auth-header">
+            <h2>Create Account</h2>
+            <p>Join our community of book lovers</p>
+          </div>
+          <form id="register-form" class="auth-form">
+            <div class="form-group">
+              <label for="name"><i class="fas fa-user"></i> Name</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+              <label for="email"><i class="fas fa-envelope"></i> Email</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="password"><i class="fas fa-lock"></i> Password</label>
+              <input type="password" id="password" name="password" required minlength="6">
+            </div>
+            <div class="form-group">
+              <label for="role"><i class="fas fa-user-tag"></i> Role</label>
+              <select id="role" name="role">
+                <option value="borrower">Borrower</option>
+                <option value="author">Author</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="preferredLanguage"><i class="fas fa-globe"></i> Preferred Language</label>
+              <select id="preferredLanguage" name="preferredLanguage">
+                <option value="en">English</option>
+                <option value="hi">हिंदी</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary btn-block">Register <i class="fas fa-user-plus"></i></button>
+            </div>
+            <p class="text-center auth-link">Already have an account? <a href="/login">Login</a></p>
+          </form>
+        </div>
+        <div class="auth-image">
+          <div class="auth-image-content">
+            <h2>Bookkeeping Service</h2>
+            <p>Manage your books, libraries, and borrowing all in one place.</p>
+            <div class="auth-features">
+              <div class="auth-feature">
+                <i class="fas fa-book"></i>
+                <span>Track your books</span>
+              </div>
+              <div class="auth-feature">
+                <i class="fas fa-exchange-alt"></i>
+                <span>Borrow & return</span>
+              </div>
+              <div class="auth-feature">
+                <i class="fas fa-building"></i>
+                <span>Manage libraries</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+

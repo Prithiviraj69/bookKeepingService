@@ -1,0 +1,79 @@
+<main>
+  <div class="page-banner">
+    <div class="container">
+      <h1>Explore Our Books</h1>
+      <p>Discover a world of knowledge and adventure in our collection</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="page-header">
+      <div class="page-header-content">
+        <h2>Books Collection</h2>
+        <p>Browse through our extensive collection of books</p>
+      </div>
+      <% if (typeof user !== 'undefined' && user && (user.role === 'author' || user.role === 'admin')) { %>
+        <a href="/books/add" class="btn btn-primary"><i class="fas fa-plus"></i> Add New Book</a>
+      <% } %>
+    </div>
+
+    <div class="search-filter-container">
+      <div class="search-filter">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" id="search-books" placeholder="Search books by title or author...">
+        </div>
+        <div class="filter-group">
+          <select id="filter-library" class="filter-select">
+            <option value="">All Libraries</option>
+            <% libraries.forEach(function(library) { %>
+              <option value="<%= library._id %>"><%= library.name %></option>
+            <% }); %>
+          </select>
+          <select id="filter-availability" class="filter-select">
+            <option value="">All Books</option>
+            <option value="available">Available</option>
+            <option value="borrowed">Borrowed</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="books-grid" id="books-container">
+      <% books.forEach(function(book) { %>
+        <div class="book-card">
+          <div class="book-cover">
+            <img src="<%= book.image %>" alt="<%= book.title %>">
+            <% if (!book.isBorrowed) { %>
+              <span class="status available">Available</span>
+            <% } else { %>
+              <span class="status borrowed">Borrowed</span>
+            <% } %>
+          </div>
+          <div class="book-info">
+            <h3><a href="/books/<%= book._id %>"><%= book.title %></a></h3>
+            <p class="author"><i class="fas fa-user"></i> <%= book.author.name %></p>
+            <p class="library"><i class="fas fa-building"></i> <%= book.library.name %></p>
+            <div class="book-actions">
+              <a href="/books/<%= book._id %>" class="btn btn-sm btn-secondary"><i class="fas fa-info-circle"></i> Details</a>
+              <% if (typeof user !== 'undefined' && user && user.role === 'borrower' && !book.isBorrowed) { %>
+                <button class="btn btn-sm btn-primary borrow-btn" data-id="<%= book._id %>"><i class="fas fa-hand-holding"></i> Borrow</button>
+              <% } else if (typeof user !== 'undefined' && user && book.borrower && book.borrower._id.toString() === user._id.toString()) { %>
+                <button class="btn btn-sm btn-warning return-btn" data-id="<%= book._id %>"><i class="fas fa-undo"></i> Return</button>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+
+    <div id="pagination" class="pagination">
+      <% if (pages > 1) { %>
+        <% for(let i = 1; i <= pages; i++) { %>
+          <a href="/books?page=<%= i %>" class="<%= page == i ? 'active' : '' %>"><%= i %></a>
+        <% } %>
+      <% } %>
+    </div>
+  </div>
+</main>
+

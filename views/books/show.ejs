@@ -1,0 +1,47 @@
+<main>
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="/books"><i class="fas fa-arrow-left"></i> Back to Books</a>
+    </div>
+
+    <div class="book-detail">
+      <div class="book-image">
+        <img src="<%= book.image %>" alt="<%= book.title %>">
+        <% if (!book.isBorrowed) { %>
+          <span class="status available">Available</span>
+        <% } else { %>
+          <span class="status borrowed">Borrowed</span>
+        <% } %>
+      </div>
+      <div class="book-content">
+        <h1><%= book.title %></h1>
+        <div class="book-meta">
+          <p><i class="fas fa-user"></i> <strong>Author:</strong> <%= book.author.name %></p>
+          <p><i class="fas fa-building"></i> <strong>Library:</strong> <%= book.library.name %></p>
+          <% if (book.isBorrowed) { %>
+            <p><i class="fas fa-user-circle"></i> <strong>Borrowed By:</strong> <%= book.borrower.name %></p>
+            <p><i class="fas fa-calendar-check"></i> <strong>Borrowed On:</strong> <%= new Date(book.borrowedAt).toLocaleDateString() %></p>
+            <p><i class="fas fa-calendar-times"></i> <strong>Return Date:</strong> <%= new Date(book.returnDate).toLocaleDateString() %></p>
+          <% } %>
+        </div>
+        <div class="book-description">
+          <h3>Description</h3>
+          <p><%= book.description %></p>
+        </div>
+        <div class="book-actions">
+          <% if (typeof user !== 'undefined' && user && ((user.role === 'author' && book.author._id.toString() === user._id.toString()) || user.role === 'admin')) { %>
+            <a href="/books/<%= book._id %>/edit" class="btn btn-secondary"><i class="fas fa-edit"></i> Edit</a>
+            <button class="btn btn-danger delete-book" data-id="<%= book._id %>"><i class="fas fa-trash"></i> Delete</button>
+          <% } %>
+          
+          <% if (typeof user !== 'undefined' && user && user.role === 'borrower' && !book.isBorrowed) { %>
+            <button class="btn btn-primary borrow-btn" data-id="<%= book._id %>"><i class="fas fa-hand-holding"></i> Borrow</button>
+          <% } else if (typeof user !== 'undefined' && user && book.borrower && book.borrower._id.toString() === user._id.toString()) { %>
+            <button class="btn btn-warning return-btn" data-id="<%= book._id %>"><i class="fas fa-undo"></i> Return</button>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+

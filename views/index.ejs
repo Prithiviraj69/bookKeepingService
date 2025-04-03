@@ -1,0 +1,135 @@
+<main>
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Welcome to the Bookkeeping Service</h1>
+        <p>Your digital library management solution. Organize your collection, track borrowing, and discover new books all in one place.</p>
+        <% if (typeof user === 'undefined' || !user) { %>
+          <div class="hero-buttons">
+            <a href="/register" class="btn btn-primary">Get Started</a>
+            <a href="/login" class="btn btn-secondary">Login</a>
+          </div>
+        <% } else { %>
+          <div class="hero-buttons">
+            <a href="/books" class="btn btn-primary">Browse Books</a>
+            <% if (user.role === 'author') { %>
+              <a href="/books/add" class="btn btn-secondary">Add New Book</a>
+            <% } else if (user.role === 'borrower') { %>
+              <a href="/my-books" class="btn btn-secondary">My Borrowed Books</a>
+            <% } %>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <i class="fas fa-book fa-3x"></i>
+          <h3>Digital Collection</h3>
+          <p class="stat-number">1000+</p>
+          <p>Books available</p>
+        </div>
+        <div class="stat-card">
+          <i class="fas fa-users fa-3x"></i>
+          <h3>Community</h3>
+          <p class="stat-number">500+</p>
+          <p>Active members</p>
+        </div>
+        <div class="stat-card">
+          <i class="fas fa-building fa-3x"></i>
+          <h3>Libraries</h3>
+          <p class="stat-number">25+</p>
+          <p>Partner libraries</p>
+        </div>
+        <div class="stat-card">
+          <i class="fas fa-exchange-alt fa-3x"></i>
+          <h3>Exchanges</h3>
+          <p class="stat-number">10k+</p>
+          <p>Books borrowed</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="container">
+      <h2>Features</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <i class="fas fa-book fa-3x"></i>
+          <h3>Book Management</h3>
+          <p>Add, update, and manage your book collection with ease. Keep track of all your literary treasures in one place.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-building fa-3x"></i>
+          <h3>Library Management</h3>
+          <p>Organize books into different libraries and track inventory. Create virtual shelves for better organization.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-exchange-alt fa-3x"></i>
+          <h3>Borrowing System</h3>
+          <p>Borrow books and keep track of return dates. Never lose track of your borrowed books again.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-globe fa-3x"></i>
+          <h3>Multilingual Support</h3>
+          <p>Use the system in your preferred language. We support multiple languages for a global community.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="how-it-works">
+    <div class="container">
+      <h2>How It Works</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Create an Account</h3>
+            <p>Sign up as a borrower to access books or as an author to share your collection.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Browse Libraries</h3>
+            <p>Explore our network of libraries and find books that interest you.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Borrow Books</h3>
+            <p>Borrow books with a simple click and keep track of return dates.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Return & Review</h3>
+            <p>Return books when you're done and share your experience with others.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Ready to Get Started?</h2>
+        <p>Join our community of book lovers and start managing your collection today.</p>
+        <% if (typeof user === 'undefined' || !user) { %>
+          <a href="/register" class="btn btn-primary btn-lg">Sign Up Now</a>
+        <% } else { %>
+          <a href="/books" class="btn btn-primary btn-lg">Browse Books</a>
+        <% } %>
+      </div>
+    </div>
+  </section>
+</main>
+
